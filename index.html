@@ -1,0 +1,838 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TurboParts - Premium Motor Parts</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        /* Custom CSS for animations and effects */
+        .part-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+        }
+        
+        .category-btn.active {
+            background-color: #3b82f6;
+            color: white;
+        }
+        
+        .hero-bg {
+            background-image: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), url('https://images.unsplash.com/photo-1597852074816-d933c7d2b988?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80');
+            background-size: cover;
+            background-position: center;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+        
+        .fade-in {
+            animation: fadeIn 0.5s ease-in;
+        }
+        
+        .cart-item {
+            transition: all 0.3s ease;
+        }
+        
+        .cart-item:hover {
+            background-color: #f3f4f6;
+        }
+    </style>
+</head>
+<body class="bg-gray-100 font-sans">
+    <!-- Header/Navigation -->
+    <header class="bg-white shadow-md sticky top-0 z-50">
+        <div class="container mx-auto px-4 py-3 flex justify-between items-center">
+            <div class="flex items-center space-x-2">
+                <i class="fas fa-car text-blue-500 text-2xl"></i>
+                <h1 class="text-xl font-bold text-gray-800">Turbo<span class="text-blue-500">Parts</span></h1>
+            </div>
+            
+            <div class="hidden md:flex space-x-6">
+                <a href="#home" class="text-gray-800 hover:text-blue-500 font-medium">Home</a>
+                <a href="#shop" class="text-gray-800 hover:text-blue-500 font-medium">Shop</a>
+                <a href="#categories" class="text-gray-800 hover:text-blue-500 font-medium">Categories</a>
+                <a href="#about" class="text-gray-800 hover:text-blue-500 font-medium">About</a>
+                <a href="#contact" class="text-gray-800 hover:text-blue-500 font-medium">Contact</a>
+            </div>
+            
+            <div class="flex items-center space-x-4">
+                <button id="search-btn" class="text-gray-600 hover:text-blue-500">
+                    <i class="fas fa-search"></i>
+                </button>
+                <button id="cart-btn" class="text-gray-600 hover:text-blue-500 relative">
+                    <i class="fas fa-shopping-cart"></i>
+                    <span id="cart-count" class="absolute -top-2 -right-2 bg-blue-500 text-white text-xs rounded-full h-5 w-5 flex items-center justify-center">0</span>
+                </button>
+                <button id="mobile-menu-btn" class="md:hidden text-gray-600 hover:text-blue-500">
+                    <i class="fas fa-bars text-xl"></i>
+                </button>
+            </div>
+        </div>
+        
+        <!-- Mobile Menu -->
+        <div id="mobile-menu" class="hidden md:hidden bg-white py-2 px-4 shadow-lg">
+            <a href="#home" class="block py-2 text-gray-800 hover:text-blue-500">Home</a>
+            <a href="#shop" class="block py-2 text-gray-800 hover:text-blue-500">Shop</a>
+            <a href="#categories" class="block py-2 text-gray-800 hover:text-blue-500">Categories</a>
+            <a href="#about" class="block py-2 text-gray-800 hover:text-blue-500">About</a>
+            <a href="#contact" class="block py-2 text-gray-800 hover:text-blue-500">Contact</a>
+        </div>
+        
+        <!-- Search Bar -->
+        <div id="search-bar" class="hidden bg-gray-100 py-3 px-4">
+            <div class="container mx-auto flex">
+                <input type="text" placeholder="Search for parts..." class="flex-grow px-4 py-2 rounded-l-lg focus:outline-none">
+                <button class="bg-blue-500 text-white px-4 py-2 rounded-r-lg hover:bg-blue-600">
+                    <i class="fas fa-search"></i>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section id="home" class="hero-bg text-white py-20 md:py-32">
+        <div class="container mx-auto px-4 text-center fade-in">
+            <h1 class="text-4xl md:text-6xl font-bold mb-4">Premium Motor Parts</h1>
+            <p class="text-xl md:text-2xl mb-8">High-quality parts for peak performance</p>
+            <a href="#shop" class="bg-blue-500 hover:bg-blue-600 text-white font-bold py-3 px-8 rounded-full inline-block transition duration-300">
+                Shop Now <i class="fas fa-arrow-right ml-2"></i>
+            </a>
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <section class="bg-white py-12">
+        <div class="container mx-auto px-4">
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <div class="text-center p-6 rounded-lg hover:bg-gray-50 transition duration-300">
+                    <div class="bg-blue-100 w-16 h-16 mx-auto rounded-full flex items-center justify-center mb-4">
+                        <i class="fas fa-truck text-blue-500 text-2xl"></i>
+                    </div>
+                    <h3 class="text-xl font-semibold mb-2">Free Shipping</h3>
+                    <p class="text-gray-600">On orders over $100</p>
+                </div>
+                
+                <div class="text-center p-6 rounded-lg hover:bg-gray-50 transition duration-300">
+                    <div class="bg-blue-100 w-16 h-16 mx-auto rounded-full flex items-center justify-center mb-4">
+                        <i class="fas fa-shield-alt text-blue-500 text-2xl"></i>
+                    </div>
+                    <h3 class="text-xl font-semibold mb-2">1-Year Warranty</h3>
+                    <p class="text-gray-600">On all our products</p>
+                </div>
+                
+                <div class="text-center p-6 rounded-lg hover:bg-gray-50 transition duration-300">
+                    <div class="bg-blue-100 w-16 h-16 mx-auto rounded-full flex items-center justify-center mb-4">
+                        <i class="fas fa-headset text-blue-500 text-2xl"></i>
+                    </div>
+                    <h3 class="text-xl font-semibold mb-2">24/7 Support</h3>
+                    <p class="text-gray-600">Expert help anytime</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Shop Section -->
+    <section id="shop" class="py-16 bg-gray-50">
+        <div class="container mx-auto px-4">
+            <div class="text-center mb-12">
+                <h2 class="text-3xl font-bold text-gray-800 mb-2">Our Products</h2>
+                <p class="text-gray-600 max-w-2xl mx-auto">Browse our extensive collection of high-performance motor parts</p>
+            </div>
+            
+            <!-- Category Filter -->
+            <div id="categories" class="flex flex-wrap justify-center gap-2 mb-8">
+                <button class="category-btn active px-4 py-2 rounded-full bg-gray-200 hover:bg-blue-500 hover:text-white transition" data-category="all">All Parts</button>
+                <button class="category-btn px-4 py-2 rounded-full bg-gray-200 hover:bg-blue-500 hover:text-white transition" data-category="engine">Engine</button>
+                <button class="category-btn px-4 py-2 rounded-full bg-gray-200 hover:bg-blue-500 hover:text-white transition" data-category="brakes">Brakes</button>
+                <button class="category-btn px-4 py-2 rounded-full bg-gray-200 hover:bg-blue-500 hover:text-white transition" data-category="suspension">Suspension</button>
+                <button class="category-btn px-4 py-2 rounded-full bg-gray-200 hover:bg-blue-500 hover:text-white transition" data-category="exhaust">Exhaust</button>
+                <button class="category-btn px-4 py-2 rounded-full bg-gray-200 hover:bg-blue-500 hover:text-white transition" data-category="electrical">Electrical</button>
+            </div>
+            
+            <!-- Products Grid -->
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8">
+                <!-- Product cards will be dynamically inserted here -->
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about" class="py-16 bg-white">
+        <div class="container mx-auto px-4">
+            <div class="flex flex-col md:flex-row items-center">
+                <div class="md:w-1/2 mb-8 md:mb-0 md:pr-8">
+                    <img src="https://images.unsplash.com/photo-1559181567-c3190ca9959b?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80" alt="About TurboParts" class="rounded-lg shadow-lg w-full">
+                </div>
+                <div class="md:w-1/2">
+                    <h2 class="text-3xl font-bold text-gray-800 mb-4">About TurboParts</h2>
+                    <p class="text-gray-600 mb-4">Founded in 2010, TurboParts has grown to become a leading supplier of high-quality motor parts for enthusiasts and professionals alike.</p>
+                    <p class="text-gray-600 mb-6">Our team of automotive experts carefully selects each product in our inventory to ensure only the best quality parts reach our customers. We partner with top manufacturers worldwide to bring you the latest and most reliable components.</p>
+                    <div class="space-y-4">
+                        <div class="flex items-start">
+                            <div class="bg-blue-100 p-2 rounded-full mr-4">
+                                <i class="fas fa-check text-blue-500"></i>
+                            </div>
+                            <div>
+                                <h4 class="font-semibold text-gray-800">Quality Assurance</h4>
+                                <p class="text-gray-600">All parts undergo rigorous testing before being listed.</p>
+                            </div>
+                        </div>
+                        <div class="flex items-start">
+                            <div class="bg-blue-100 p-2 rounded-full mr-4">
+                                <i class="fas fa-check text-blue-500"></i>
+                            </div>
+                            <div>
+                                <h4 class="font-semibold text-gray-800">Expert Support</h4>
+                                <p class="text-gray-600">Our team includes certified mechanics ready to assist you.</p>
+                            </div>
+                        </div>
+                        <div class="flex items-start">
+                            <div class="bg-blue-100 p-2 rounded-full mr-4">
+                                <i class="fas fa-check text-blue-500"></i>
+                            </div>
+                            <div>
+                                <h4 class="font-semibold text-gray-800">Fast Shipping</h4>
+                                <p class="text-gray-600">Most orders ship same day when placed before 3PM EST.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Testimonials -->
+    <section class="py-16 bg-gray-50">
+        <div class="container mx-auto px-4">
+            <div class="text-center mb-12">
+                <h2 class="text-3xl font-bold text-gray-800 mb-2">What Our Customers Say</h2>
+                <p class="text-gray-600 max-w-2xl mx-auto">Don't just take our word for it - hear from our satisfied customers</p>
+            </div>
+            
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <div class="bg-white p-6 rounded-lg shadow-sm hover:shadow-md transition duration-300">
+                    <div class="flex items-center mb-4">
+                        <div class="text-yellow-400 mr-2">
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                        </div>
+                    </div>
+                    <p class="text-gray-600 mb-4">"The performance exhaust I ordered made a huge difference in my car's power and sound. Shipping was fast and the part fit perfectly."</p>
+                    <div class="flex items-center">
+                        <div class="bg-gray-200 w-10 h-10 rounded-full mr-3 overflow-hidden">
+                            <img src="https://randomuser.me/api/portraits/men/32.jpg" alt="Customer" class="w-full h-full object-cover">
+                        </div>
+                        <div>
+                            <h4 class="font-semibold">Michael R.</h4>
+                            <p class="text-sm text-gray-500">Verified Customer</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="bg-white p-6 rounded-lg shadow-sm hover:shadow-md transition duration-300">
+                    <div class="flex items-center mb-4">
+                        <div class="text-yellow-400 mr-2">
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                        </div>
+                    </div>
+                    <p class="text-gray-600 mb-4">"I was hesitant to order suspension parts online, but TurboParts' customer service helped me find exactly what I needed. The parts arrived well-packaged and were high quality."</p>
+                    <div class="flex items-center">
+                        <div class="bg-gray-200 w-10 h-10 rounded-full mr-3 overflow-hidden">
+                            <img src="https://randomuser.me/api/portraits/women/44.jpg" alt="Customer" class="w-full h-full object-cover">
+                        </div>
+                        <div>
+                            <h4 class="font-semibold">Sarah L.</h4>
+                            <p class="text-sm text-gray-500">Verified Customer</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="bg-white p-6 rounded-lg shadow-sm hover:shadow-md transition duration-300">
+                    <div class="flex items-center mb-4">
+                        <div class="text-yellow-400 mr-2">
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star-half-alt"></i>
+                        </div>
+                    </div>
+                    <p class="text-gray-600 mb-4">"Great selection of brake components at competitive prices. I've ordered rotors and pads multiple times and have always been satisfied with the performance."</p>
+                    <div class="flex items-center">
+                        <div class="bg-gray-200 w-10 h-10 rounded-full mr-3 overflow-hidden">
+                            <img src="https://randomuser.me/api/portraits/men/75.jpg" alt="Customer" class="w-full h-full object-cover">
+                        </div>
+                        <div>
+                            <h4 class="font-semibold">David T.</h4>
+                            <p class="text-sm text-gray-500">Verified Customer</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="py-16 bg-white">
+        <div class="container mx-auto px-4">
+            <div class="text-center mb-12">
+                <h2 class="text-3xl font-bold text-gray-800 mb-2">Contact Us</h2>
+                <p class="text-gray-600 max-w-2xl mx-auto">Have questions? Our team is here to help</p>
+            </div>
+            
+            <div class="max-w-4xl mx-auto bg-gray-50 rounded-lg shadow-sm overflow-hidden">
+                <div class="md:flex">
+                    <div class="md:w-1/2 bg-blue-500 text-white p-8">
+                        <h3 class="text-xl font-semibold mb-4">Get in Touch</h3>
+                        <div class="space-y-4">
+                            <div class="flex items-start">
+                                <div class="mr-4 mt-1">
+                                    <i class="fas fa-map-marker-alt"></i>
+                                </div>
+                                <div>
+                                    <h4 class="font-medium">Address</h4>
+                                    <p class="text-blue-100">123 Auto Parts Lane, Detroit, MI 48201</p>
+                                </div>
+                            </div>
+                            <div class="flex items-start">
+                                <div class="mr-4 mt-1">
+                                    <i class="fas fa-phone-alt"></i>
+                                </div>
+                                <div>
+                                    <h4 class="font-medium">Phone</h4>
+                                    <p class="text-blue-100">(800) 555-1234</p>
+                                </div>
+                            </div>
+                            <div class="flex items-start">
+                                <div class="mr-4 mt-1">
+                                    <i class="fas fa-envelope"></i>
+                                </div>
+                                <div>
+                                    <h4 class="font-medium">Email</h4>
+                                    <p class="text-blue-100">support@turboparts.com</p>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="mt-8">
+                            <h4 class="font-medium mb-3">Business Hours</h4>
+                            <div class="space-y-2">
+                                <div class="flex justify-between text-blue-100">
+                                    <span>Monday - Friday</span>
+                                    <span>8:00 AM - 6:00 PM</span>
+                                </div>
+                                <div class="flex justify-between text-blue-100">
+                                    <span>Saturday</span>
+                                    <span>9:00 AM - 4:00 PM</span>
+                                </div>
+                                <div class="flex justify-between text-blue-100">
+                                    <span>Sunday</span>
+                                    <span>Closed</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="md:w-1/2 p-8">
+                        <form>
+                            <div class="mb-4">
+                                <label for="name" class="block text-gray-700 mb-2">Name</label>
+                                <input type="text" id="name" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500">
+                            </div>
+                            <div class="mb-4">
+                                <label for="email" class="block text-gray-700 mb-2">Email</label>
+                                <input type="email" id="email" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500">
+                            </div>
+                            <div class="mb-4">
+                                <label for="subject" class="block text-gray-700 mb-2">Subject</label>
+                                <input type="text" id="subject" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500">
+                            </div>
+                            <div class="mb-4">
+                                <label for="message" class="block text-gray-700 mb-2">Message</label>
+                                <textarea id="message" rows="4" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"></textarea>
+                            </div>
+                            <button type="submit" class="w-full bg-blue-500 text-white py-2 px-4 rounded-lg hover:bg-blue-600 transition duration-300">
+                                Send Message
+                            </button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Newsletter -->
+    <section class="py-12 bg-blue-500 text-white">
+        <div class="container mx-auto px-4 text-center">
+            <h2 class="text-2xl font-bold mb-4">Stay Updated</h2>
+            <p class="max-w-2xl mx-auto mb-6 text-blue-100">Subscribe to our newsletter for the latest products, deals, and automotive tips.</p>
+            <div class="max-w-md mx-auto flex">
+                <input type="email" placeholder="Your email address" class="flex-grow px-4 py-3 rounded-l-lg focus:outline-none text-gray-800">
+                <button class="bg-blue-700 hover:bg-blue-800 px-6 py-3 rounded-r-lg transition duration-300">
+                    Subscribe
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-gray-800 text-white pt-12 pb-6">
+        <div class="container mx-auto px-4">
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-8 mb-8">
+                <div>
+                    <div class="flex items-center space-x-2 mb-4">
+                        <i class="fas fa-car text-blue-400 text-2xl"></i>
+                        <h3 class="text-xl font-bold">Turbo<span class="text-blue-400">Parts</span></h3>
+                    </div>
+                    <p class="text-gray-400 mb-4">Your trusted source for high-quality motor parts since 2010.</p>
+                    <div class="flex space-x-4">
+                        <a href="#" class="text-gray-400 hover:text-white transition">
+                            <i class="fab fa-facebook-f"></i>
+                        </a>
+                        <a href="#" class="text-gray-400 hover:text-white transition">
+                            <i class="fab fa-twitter"></i>
+                        </a>
+                        <a href="#" class="text-gray-400 hover:text-white transition">
+                            <i class="fab fa-instagram"></i>
+                        </a>
+                        <a href="#" class="text-gray-400 hover:text-white transition">
+                            <i class="fab fa-youtube"></i>
+                        </a>
+                    </div>
+                </div>
+                
+                <div>
+                    <h4 class="text-lg font-semibold mb-4">Quick Links</h4>
+                    <ul class="space-y-2">
+                        <li><a href="#home" class="text-gray-400 hover:text-white transition">Home</a></li>
+                        <li><a href="#shop" class="text-gray-400 hover:text-white transition">Shop</a></li>
+                        <li><a href="#categories" class="text-gray-400 hover:text-white transition">Categories</a></li>
+                        <li><a href="#about" class="text-gray-400 hover:text-white transition">About Us</a></li>
+                        <li><a href="#contact" class="text-gray-400 hover:text-white transition">Contact</a></li>
+                    </ul>
+                </div>
+                
+                <div>
+                    <h4 class="text-lg font-semibold mb-4">Customer Service</h4>
+                    <ul class="space-y-2">
+                        <li><a href="#" class="text-gray-400 hover:text-white transition">My Account</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white transition">Order Tracking</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white transition">Wishlist</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white transition">Shipping Policy</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white transition">Returns & Refunds</a></li>
+                    </ul>
+                </div>
+                
+                <div>
+                    <h4 class="text-lg font-semibold mb-4">Payment Methods</h4>
+                    <div class="flex flex-wrap gap-3 mb-4">
+                        <div class="bg-gray-700 p-2 rounded">
+                            <i class="fab fa-cc-visa text-2xl"></i>
+                        </div>
+                        <div class="bg-gray-700 p-2 rounded">
+                            <i class="fab fa-cc-mastercard text-2xl"></i>
+                        </div>
+                        <div class="bg-gray-700 p-2 rounded">
+                            <i class="fab fa-cc-amex text-2xl"></i>
+                        </div>
+                        <div class="bg-gray-700 p-2 rounded">
+                            <i class="fab fa-cc-paypal text-2xl"></i>
+                        </div>
+                        <div class="bg-gray-700 p-2 rounded">
+                            <i class="fab fa-cc-discover text-2xl"></i>
+                        </div>
+                    </div>
+                    <p class="text-gray-400">Secure payment processing</p>
+                </div>
+            </div>
+            
+            <div class="border-t border-gray-700 pt-6 flex flex-col md:flex-row justify-between items-center">
+                <p class="text-gray-400 mb-4 md:mb-0">© 2025 TurboParts. All rights reserved.</p>
+                <div class="flex space-x-6">
+                    <a href="#" class="text-gray-400 hover:text-white transition">Privacy Policy</a>
+                    <a href="#" class="text-gray-400 hover:text-white transition">Terms of Service</a>
+                    <a href="#" class="text-gray-400 hover:text-white transition">Sitemap</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Shopping Cart Modal -->
+    <div id="cart-modal" class="fixed inset-0 z-50 hidden overflow-y-auto">
+        <div class="flex items-center justify-center min-h-screen pt-4 px-4 pb-20 text-center sm:block sm:p-0">
+            <div class="fixed inset-0 transition-opacity" aria-hidden="true">
+                <div class="absolute inset-0 bg-gray-500 opacity-75"></div>
+            </div>
+            
+            <span class="hidden sm:inline-block sm:align-middle sm:h-screen" aria-hidden="true">&#8203;</span>
+            
+            <div class="inline-block align-bottom bg-white rounded-lg text-left overflow-hidden shadow-xl transform transition-all sm:my-8 sm:align-middle sm:max-w-lg sm:w-full">
+                <div class="bg-white px-4 pt-5 pb-4 sm:p-6 sm:pb-4">
+                    <div class="flex justify-between items-center mb-4">
+                        <h3 class="text-lg font-medium text-gray-900">Your Shopping Cart</h3>
+                        <button id="close-cart" class="text-gray-500 hover:text-gray-700">
+                            <i class="fas fa-times"></i>
+                        </button>
+                    </div>
+                    
+                    <div id="cart-items" class="max-h-96 overflow-y-auto">
+                        <!-- Cart items will be inserted here -->
+                        <div class="text-center py-8 text-gray-500">
+                            <i class="fas fa-shopping-cart text-4xl mb-2"></i>
+                            <p>Your cart is empty</p>
+                        </div>
+                    </div>
+                    
+                    <div class="border-t border-gray-200 mt-4 pt-4">
+                        <div class="flex justify-between mb-2">
+                            <span class="text-gray-600">Subtotal:</span>
+                            <span id="cart-subtotal" class="font-medium">$0.00</span>
+                        </div>
+                        <div class="flex justify-between mb-4">
+                            <span class="text-gray-600">Shipping:</span>
+                            <span class="font-medium">Calculated at checkout</span>
+                        </div>
+                        <button id="checkout-btn" class="w-full bg-blue-500 hover:bg-blue-600 text-white py-2 px-4 rounded-lg transition duration-300">
+                            Proceed to Checkout
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Sample product data
+        const products = [
+            {
+                id: 1,
+                name: "Performance Air Filter",
+                price: 49.99,
+                category: "engine",
+                image: "https://images.unsplash.com/photo-1590856029826-c7a73142bbf1?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80",
+                rating: 4.5,
+                description: "High-flow air filter for improved engine performance and efficiency."
+            },
+            {
+                id: 2,
+                name: "Ceramic Brake Pads",
+                price: 89.99,
+                category: "brakes",
+                image: "https://images.unsplash.com/photo-1559059699-08503c9c8067?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80",
+                rating: 4.8,
+                description: "Premium ceramic brake pads for superior stopping power and durability."
+            },
+            {
+                id: 3,
+                name: "Sport Suspension Kit",
+                price: 349.99,
+                category: "suspension",
+                image: "https://images.unsplash.com/photo-1629455736991-d801b5a5c0c5?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80",
+                rating: 4.7,
+                description: "Complete suspension kit for improved handling and ride quality."
+            },
+            {
+                id: 4,
+                name: "Stainless Steel Exhaust",
+                price: 299.99,
+                category: "exhaust",
+                image: "https://images.unsplash.com/photo-1600861195091-690c92f1d2cc?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80",
+                rating: 4.9,
+                description: "Performance exhaust system for enhanced sound and power."
+            },
+            {
+                id: 5,
+                name: "LED Headlight Kit",
+                price: 129.99,
+                category: "electrical",
+                image: "https://images.unsplash.com/photo-1605100804763-247f67b3557e?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80",
+                rating: 4.6,
+                description: "Bright LED headlights for improved nighttime visibility."
+            },
+            {
+                id: 6,
+                name: "Turbocharger Kit",
+                price: 1199.99,
+                category: "engine",
+                image: "https://images.unsplash.com/photo-1559059699-ef8f5f6d0e0f?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80",
+                rating: 4.9,
+                description: "Complete turbocharger kit for significant power gains."
+            },
+            {
+                id: 7,
+                name: "Performance Spark Plugs",
+                price: 39.99,
+                category: "engine",
+                image: "https://images.unsplash.com/photo-1559059699-08503c9c8067?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80",
+                rating: 4.4,
+                description: "Iridium spark plugs for better combustion and fuel efficiency."
+            },
+            {
+                id: 8,
+                name: "Strut Tower Brace",
+                price: 149.99,
+                category: "suspension",
+                image: "https://images.unsplash.com/photo-1629455736991-d801b5a5c0c5?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80",
+                rating: 4.3,
+                description: "Improves chassis rigidity for better cornering performance."
+            }
+        ];
+
+        // Shopping cart functionality
+        let cart = [];
+        
+        // DOM elements
+        const productsGrid = document.querySelector('.grid.grid-cols-1');
+        const cartBtn = document.getElementById('cart-btn');
+        const cartModal = document.getElementById('cart-modal');
+        const closeCartBtn = document.getElementById('close-cart');
+        const cartItemsContainer = document.getElementById('cart-items');
+        const cartSubtotal = document.getElementById('cart-subtotal');
+        const cartCount = document.getElementById('cart-count');
+        const categoryBtns = document.querySelectorAll('.category-btn');
+        const searchBtn = document.getElementById('search-btn');
+        const searchBar = document.getElementById('search-bar');
+        const mobileMenuBtn = document.getElementById('mobile-menu-btn');
+        const mobileMenu = document.getElementById('mobile-menu');
+
+        // Display products
+        function displayProducts(filterCategory = 'all') {
+            productsGrid.innerHTML = '';
+            
+            const filteredProducts = filterCategory === 'all' 
+                ? products 
+                : products.filter(product => product.category === filterCategory);
+            
+            filteredProducts.forEach(product => {
+                const productCard = document.createElement('div');
+                productCard.className = 'bg-white rounded-lg shadow-md overflow-hidden part-card transition duration-300';
+                productCard.innerHTML = `
+                    <div class="relative">
+                        <img src="${product.image}" alt="${product.name}" class="w-full h-48 object-cover">
+                        <span class="absolute top-2 right-2 bg-blue-500 text-white text-xs px-2 py-1 rounded-full">${product.category.charAt(0).toUpperCase() + product.category.slice(1)}</span>
+                    </div>
+                    <div class="p-4">
+                        <h3 class="text-lg font-semibold mb-1">${product.name}</h3>
+                        <div class="flex items-center mb-2">
+                            ${renderRatingStars(product.rating)}
+                            <span class="text-gray-500 text-sm ml-1">(${product.rating})</span>
+                        </div>
+                        <p class="text-gray-600 text-sm mb-3">${product.description}</p>
+                        <div class="flex justify-between items-center">
+                            <span class="text-lg font-bold text-blue-500">$${product.price.toFixed(2)}</span>
+                            <button class="add-to-cart bg-blue-500 hover:bg-blue-600 text-white px-3 py-1 rounded-full text-sm transition duration-300" data-id="${product.id}">
+                                <i class="fas fa-cart-plus mr-1"></i> Add to Cart
+                            </button>
+                        </div>
+                    </div>
+                `;
+                productsGrid.appendChild(productCard);
+            });
+            
+            // Add event listeners to the new "Add to Cart" buttons
+            document.querySelectorAll('.add-to-cart').forEach(button => {
+                button.addEventListener('click', addToCart);
+            });
+        }
+
+        // Render rating stars
+        function renderRatingStars(rating) {
+            let stars = '';
+            const fullStars = Math.floor(rating);
+            const hasHalfStar = rating % 1 >= 0.5;
+            
+            for (let i = 0; i < fullStars; i++) {
+                stars += '<i class="fas fa-star text-yellow-400"></i>';
+            }
+            
+            if (hasHalfStar) {
+                stars += '<i class="fas fa-star-half-alt text-yellow-400"></i>';
+            }
+            
+            const emptyStars = 5 - fullStars - (hasHalfStar ? 1 : 0);
+            for (let i = 0; i < emptyStars; i++) {
+                stars += '<i class="far fa-star text-yellow-400"></i>';
+            }
+            
+            return stars;
+        }
+
+        // Add to cart function
+        function addToCart(e) {
+            const productId = parseInt(e.target.getAttribute('data-id'));
+            const product = products.find(p => p.id === productId);
+            
+            // Check if product is already in cart
+            const existingItem = cart.find(item => item.id === productId);
+            
+            if (existingItem) {
+                existingItem.quantity += 1;
+            } else {
+                cart.push({
+                    ...product,
+                    quantity: 1
+                });
+            }
+            
+            updateCart();
+            
+            // Show a quick confirmation
+            const button = e.target;
+            button.innerHTML = '<i class="fas fa-check mr-1"></i> Added!';
+            button.classList.remove('bg-blue-500', 'hover:bg-blue-600');
+            button.classList.add('bg-green-500', 'hover:bg-green-600');
+            
+            setTimeout(() => {
+                button.innerHTML = '<i class="fas fa-cart-plus mr-1"></i> Add to Cart';
+                button.classList.remove('bg-green-500', 'hover:bg-green-600');
+                button.classList.add('bg-blue-500', 'hover:bg-blue-600');
+            }, 1000);
+        }
+
+        // Update cart UI
+        function updateCart() {
+            // Update cart count
+            const totalItems = cart.reduce((total, item) => total + item.quantity, 0);
+            cartCount.textContent = totalItems;
+            
+            // Update cart modal if open
+            if (cartModal.classList.contains('hidden')) return;
+            
+            renderCartItems();
+        }
+
+        // Render cart items
+        function renderCartItems() {
+            if (cart.length === 0) {
+                cartItemsContainer.innerHTML = `
+                    <div class="text-center py-8 text-gray-500">
+                        <i class="fas fa-shopping-cart text-4xl mb-2"></i>
+                        <p>Your cart is empty</p>
+                    </div>
+                `;
+                cartSubtotal.textContent = '$0.00';
+                return;
+            }
+            
+            cartItemsContainer.innerHTML = '';
+            
+            cart.forEach(item => {
+                const cartItem = document.createElement('div');
+                cartItem.className = 'cart-item flex items-center py-4 border-b border-gray-200';
+                cartItem.innerHTML = `
+                    <div class="w-16 h-16 rounded overflow-hidden mr-4">
+                        <img src="${item.image}" alt="${item.name}" class="w-full h-full object-cover">
+                    </div>
+                    <div class="flex-grow">
+                        <h4 class="font-medium">${item.name}</h4>
+                        <p class="text-sm text-gray-500">$${item.price.toFixed(2)} x ${item.quantity}</p>
+                    </div>
+                    <div class="text-right">
+                        <p class="font-medium">$${(item.price * item.quantity).toFixed(2)}</p>
+                        <div class="flex items-center mt-1">
+                            <button class="quantity-btn decrease px-2 py-1 bg-gray-200 rounded-l hover:bg-gray-300" data-id="${item.id}">
+                                <i class="fas fa-minus text-xs"></i>
+                            </button>
+                            <span class="px-2 py-1 bg-gray-100">${item.quantity}</span>
+                            <button class="quantity-btn increase px-2 py-1 bg-gray-200 rounded-r hover:bg-gray-300" data-id="${item.id}">
+                                <i class="fas fa-plus text-xs"></i>
+                            </button>
+                        </div>
+                    </div>
+                `;
+                cartItemsContainer.appendChild(cartItem);
+            });
+            
+            // Calculate subtotal
+            const subtotal = cart.reduce((total, item) => total + (item.price * item.quantity), 0);
+            cartSubtotal.textContent = `$${subtotal.toFixed(2)}`;
+            
+            // Add event listeners to quantity buttons
+            document.querySelectorAll('.quantity-btn').forEach(button => {
+                button.addEventListener('click', adjustQuantity);
+            });
+        }
+
+        // Adjust quantity function
+        function adjustQuantity(e) {
+            const productId = parseInt(e.target.closest('button').getAttribute('data-id'));
+            const isIncrease = e.target.closest('button').classList.contains('increase');
+            
+            const itemIndex = cart.findIndex(item => item.id === productId);
+            
+            if (itemIndex !== -1) {
+                if (isIncrease) {
+                    cart[itemIndex].quantity += 1;
+                } else {
+                    if (cart[itemIndex].quantity > 1) {
+                        cart[itemIndex].quantity -= 1;
+                    } else {
+                        // Remove item if quantity would go to 0
+                        cart.splice(itemIndex, 1);
+                    }
+                }
+                
+                updateCart();
+            }
+        }
+
+        // Filter products by category
+        categoryBtns.forEach(button => {
+            button.addEventListener('click', () => {
+                categoryBtns.forEach(btn => btn.classList.remove('active'));
+                button.classList.add('active');
+                const category = button.getAttribute('data-category');
+                displayProducts(category);
+            });
+        });
+
+        // Toggle cart modal
+        cartBtn.addEventListener('click', () => {
+            cartModal.classList.remove('hidden');
+            renderCartItems();
+        });
+
+        closeCartBtn.addEventListener('click', () => {
+            cartModal.classList.add('hidden');
+        });
+
+        // Close cart when clicking outside
+        window.addEventListener('click', (e) => {
+            if (e.target === cartModal) {
+                cartModal.classList.add('hidden');
+            }
+        });
+
+        // Toggle search bar
+        searchBtn.addEventListener('click', () => {
+            searchBar.classList.toggle('hidden');
+        });
+
+        // Toggle mobile menu
+        mobileMenuBtn.addEventListener('click', () => {
+            mobileMenu.classList.toggle('hidden');
+        });
+
+        // Initialize the page
+        document.addEventListener('DOMContentLoaded', () => {
+            displayProducts();
+        });
+
+        // Checkout button
+        document.getElementById('checkout-btn').addEventListener('click', () => {
+            alert('Proceeding to checkout! This would connect to a payment processor in a real application.');
+        });
+    </script>
+</body>
+</html>
